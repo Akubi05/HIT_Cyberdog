@@ -51,10 +51,10 @@
 
 然后运行仿真程序，运行仿真程序后可通过 window->Topic Visualization 中找到对应 topic 并打开,可确认rgb 相机正常运行
 
-![](/cyberdog/note/cyberdog/pictures/10.png)
-![](/cyberdog/note/cyberdog/pictures/11.png)
+![](pictures/10.png)
+![](pictures/11.png)
 通过 `ros2 topic list`可确认 topic 正常发送
-![](/cyberdog/note/cyberdog/pictures/12.png)
+![](pictures/12.png)
 
 ## 1.2 在rivz中可视化
 
@@ -79,5 +79,5 @@ ls /path/to/folder | grep "filename"
 
 在 Add 中 By topic 点击`/image_raw/Image`和`/image_raw/Camera`
 在Displays的image中，把topic的Reliability Policy改为Best effort，同理，在Camera中，topic的Reliability Policy改为Best effort。
-![alt text](/cyberdog/note/cyberdog/pictures/image.png)
+![alt text](pictures/image.png)
 
