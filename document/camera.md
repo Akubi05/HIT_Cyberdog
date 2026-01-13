@@ -1,3 +1,9 @@
+94号狗
+ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/camera/camera configure
+ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/camera/camera activate
+ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera configure
+ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera activate
+
 ros2 launch realsense2_camera on_dog.py
 ros2 lifecycle set /camera/camera configure
 ros2 lifecycle set /camera/camera activate
