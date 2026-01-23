@@ -1,8 +1,15 @@
 94号狗
+
+如果相机命令执行失败,可以在每个命令前面执行 ros2 daemon stop
+
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/camera/camera configure
+
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/camera/camera activate
+
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera configure
+
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera activate
+
 
 ros2 launch realsense2_camera on_dog.py
 ros2 lifecycle set /camera/camera configure

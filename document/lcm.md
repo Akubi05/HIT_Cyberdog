@@ -25,6 +25,7 @@ pip install pyzbar --break-system-packages
 sudo apt update
 sudo apt install -y libzbar0
 ```
+
 # lcm所有
 .
 ./lcmtesta
