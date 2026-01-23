@@ -25,6 +25,21 @@ pip install pyzbar --break-system-packages
 sudo apt update
 sudo apt install -y libzbar0
 ```
+# lcm所有
+.
+./lcmtesta
+./lcmtesta/example.lcm
+./lcmtesta/ex
+./lcmtesta/ex/__pycache__
+./lcmtesta/ex/__pycache__/__init__.cpython-313.pyc
+./lcmtesta/ex/__pycache__/example_t.cpython-313.pyc
+./lcmtesta/ex/__init__.py
+./lcmtesta/ex/example_t.py
+./lcmtesta/mintest.py
+./computer_dog
+./computer_dog/dog_cmd_recv.py
+./computer_dog/pc_cmd_send.py
+./computer_dog/final_198_merge1.py
 
 # 让计算机发送命令让机器狗接受并执行
 final需要的文件:
