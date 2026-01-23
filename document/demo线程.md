@@ -3,6 +3,7 @@
 ```
 demo.py
 '''
+
 This demo show the communication interface of MR813 motion control board based on Lcm.
 Dependency: 
 - robot_control_cmd_lcmt.py
