@@ -29,6 +29,11 @@ cd /home/cyberdog_sim
 python3 src/cyberdog_simulator/cyberdog_gazebo/script/launchsim.py
 ```
 
+cd /home/cyberdog_sim
+python3 src/cyberdog_simulator/cyberdog_gazebo/script/launchsim.py
+
+然后参考25年文档,把25年相关代码移到对应文件夹,运行
+
 可参考文档
 [Gazebo仿真平台技术0323.docx](Gazebo仿真平台技术.docx)
 [cyberdog_race说明文档.docx](cyberdog_race说明文档.docx)
