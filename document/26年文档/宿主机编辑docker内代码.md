@@ -21,3 +21,10 @@ sudo usermod -aG docker $USER
 
 点attach vscode
 然后就可以修改代码了
+
+建议vscode修改代码,
+宿主机终端进行仿真可视化
+```
+cd /home/cyberdog_sim
+python3 src/cyberdog_simulator/cyberdog_gazebo/script/launchsim.py
+```
