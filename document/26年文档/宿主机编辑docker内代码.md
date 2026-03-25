@@ -16,7 +16,6 @@ sudo usermod -aG docker $USER
 重启电脑
 再次`docker ps`
 
-
 ![alt text](image.png)
 
 点attach vscode
