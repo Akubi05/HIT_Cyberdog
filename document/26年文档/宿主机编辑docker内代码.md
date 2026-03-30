@@ -10,7 +10,7 @@ permission denied while trying to connect to the docker API at unix:///var/run/d
 luke@akubi:~$ sudo usermod -aG docker $USER
 ```
 
-说明 Docker 已经装好了，但当前用户 luke 没有权限访问 Docker socke
+说明 Docker 已经装好了，但当前用户 luke 没有权限访问 Docker socket
 先把当前用户加入 docker 用户组：
 
 ```
@@ -30,7 +30,7 @@ sudo usermod -aG docker $USER
 sudo docker run -it --shm-size="1g" --privileged=true -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix cyberdog_sim:v1
 `
 
-注意docker run和docker excu的区别
+注意docker run和docker exec的区别
 `
 docker run ... cyberdog_sim:v2026：创建并启动一个新容器
 docker exec -it suspicious_golick /bin/bash：进入一个已经运行的旧容器
