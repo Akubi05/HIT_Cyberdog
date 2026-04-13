@@ -31,10 +31,10 @@ sudo docker run -it --shm-size="1g" --privileged=true -e DISPLAY=$DISPLAY -v /tm
 `
 
 注意docker run和docker exec的区别
-`
-docker run ... cyberdog_sim:v2026：创建并启动一个新容器
-docker exec -it suspicious_golick /bin/bash：进入一个已经运行的旧容器
-`
+
+`docker run ... cyberdog_sim:v2026`：创建并启动一个新容器
+`docker exec -it suspicious_golick /bin/bash`：进入一个已经运行的旧容器
+
 
 建议仅第一次用docker run,后面如果用cmd进入容器的话,用docker exec进入,不要用docker run了,这会新建一个容器.
 
