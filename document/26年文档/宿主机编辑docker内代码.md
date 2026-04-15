@@ -62,3 +62,6 @@ python3 src/cyberdog_simulator/cyberdog_gazebo/script/launchsim.py
 可参考文档
 [Gazebo仿真平台技术.docx](Gazebo仿真平台技术.docx)
 [cyberdog_race说明文档.docx](cyberdog_race说明文档.docx)
+
+# 安装环境
+
