@@ -17,7 +17,12 @@ luke@akubi:~$ sudo usermod -aG docker $USER
 sudo usermod -aG docker $USER
 ```
 
-重启电脑
+先让当前终端加载新组
+```
+newgrp docker
+```
+
+还不行就重启电脑
 再次`docker ps`
 ![alt text](image-1.png)
 
