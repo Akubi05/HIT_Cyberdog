@@ -634,10 +634,7 @@ class VisionNode(Node):
             'cola': self._detect_cola,
             'blue_cube': self._detect_blue_cube,
             'dotted_line': self._detect_dotted_line,
-
-            'lane_center_before_ball': self._detect_lane_center,
-            'lane_center_before_cola': self._detect_lane_center,
-            'lane_center_before_blue_cube': self._detect_lane_center,
+            'lane_center': self._detect_lane_center,
         }
         self.preview_states = {2, 7, 11, 17, 31, 44, 48, 53}
 
@@ -1836,28 +1833,14 @@ class RobotApp:
         self.keyboard_thread = None
         self._runtime_started = False
         self._shutdown_done = False
-
-        # 居中pid参数
-        self._lane_center_integral = 0.0
-        self._lane_center_last_error = 0.0
-        self._lane_center_stable_since = None
-
         self.state_handlers = {
             0: self._handle_state_0,
             'boll': self._handle_state_boll,
             'cola': self._handle_state_cola,
             'dotted_line': self._handle_state_dotted_line,
             'blue_cube': self._handle_state_blue_cube,
-
-            'lane_center_before_ball': self._handle_state_lane_center,
-            'lane_center_before_cola': self._handle_state_lane_center,
-            'lane_center_before_blue_cube': self._handle_state_lane_center,
+            'lane_center': self._handle_state_lane_center,
         }
-
-    def _reset_lane_center_controller(self):
-        self._lane_center_integral = 0.0
-        self._lane_center_last_error = 0.0
-        self._lane_center_stable_since = None
 
     def start(self):
         if self._runtime_started:
@@ -2084,35 +2067,27 @@ class RobotApp:
             self.app_state.state_id = ''
         return last_cmd_time
 
-    def _handle_state_lane_center(self, current_time, last_cmd_time, cmd_interval):
+    def _handle_state_lane_center(self, cmd_interval):
         kp = 1.2
         kd = 0.5
         ki = 0.05
         max_yaw = 0.5
-
-        current_state = self.app_state.state_id
-
-        if self._tick_ready(current_time, last_cmd_time, cmd_interval):
+        integral = 0.0
+        last_error = 0.0
+        # self._send_cmd(
+        #     mode=11,
+        #     gait_id=10,
+        #     vel=[0.1, 0.0, 0],
+        #     # rpy=[0.0, 2.5, 0.0],
+        #     # step_height=[0.06, 0.06],
+        # )
+        while self.app_state.state_id == 'lane_center' and not self.app_state.exit_requested:
             yaw_error = self.vision_node.yaw_adjust
-            delta_error = yaw_error - self._lane_center_last_error
-
-            self._lane_center_integral = float(
-                np.clip(
-                    self._lane_center_integral + yaw_error * cmd_interval,
-                    -1.0,
-                    1.0
-                )
-            )
-
-            yaw_speed = (
-                kp * yaw_error
-                + kd * delta_error
-                + ki * self._lane_center_integral
-            )
+            delta_error = yaw_error - last_error
+            integral = float(np.clip(integral + yaw_error * cmd_interval, -1.0, 1.0))
+            yaw_speed = kp * yaw_error + kd * delta_error + ki * integral
             yaw_speed = float(np.clip(yaw_speed, -max_yaw, max_yaw))
-
             self.app_state.yaw = yaw_speed
-
             self._send_cmd(
                 mode=11,
                 gait_id=27,
@@ -2120,34 +2095,16 @@ class RobotApp:
                 rpy=[0.0, 2.5, 0.0],
                 step_height=[0.06, 0.06],
             )
-
-            self._lane_center_last_error = yaw_error
-            last_cmd_time = current_time
-
-        # 连续稳定居中一段时间后，执行状态跳转
-        stable_threshold = 0.05
-        stable_duration = 1.0
-
-        yaw_error = self.vision_node.yaw_adjust
-        if abs(yaw_error) < stable_threshold:
-            if self._lane_center_stable_since is None:
-                self._lane_center_stable_since = current_time
-            elif current_time - self._lane_center_stable_since >= stable_duration:
-                if current_state == 'lane_center_before_ball':
-                    print('lane_center_before_ball 完成，进入 boll')
-                    self.app_state.state_id = 'boll'
-                elif current_state == 'lane_center_before_cola':
-                    print('lane_center_before_cola 完成，进入 cola')
-                    self.app_state.state_id = 'cola'
-                elif current_state == 'lane_center_before_blue_cube':
-                    print('lane_center_before_blue_cube 完成，进入 blue_cube')
-                    self.app_state.state_id = 'blue_cube'
-
-                self._reset_lane_center_controller()
-        else:
-            self._lane_center_stable_since = None
-
-        return last_cmd_time                
+            # self._send_cmd(
+            #     mode=11,
+            #     gait_id=10,
+            #     vel=[0.1, 0.0, 0],
+            #     # rpy=[0.0, 2.5, 0.0],
+            #     # step_height=[0.06, 0.06],
+            # )
+            print(1)
+            last_error = yaw_error
+            time.sleep(cmd_interval)
 
     def run(self):
         if not self._runtime_started:
@@ -2158,7 +2115,7 @@ class RobotApp:
         # self.app_state.state_id = 'blue_cube'
         # self.app_state.state_id = 'boll'
 
-        self.app_state.state_id = 'lane_center_before_ball'
+        self.app_state.state_id = 'lane_center'
 
         self.app_state.qr_text = ''
         self.app_state.yaw = 0.0
@@ -2173,12 +2130,15 @@ class RobotApp:
             current_time = time.time()
             current_state = self.app_state.state_id
 
+            if current_state == 'lane_center':
+                self._handle_state_lane_center(cmd_interval)
+                continue
+
             handler = self.state_handlers.get(current_state)
             if handler is None:
-                print(f'未知状态: {current_state}')
                 break
-
             last_cmd_time = handler(current_time, last_cmd_time, cmd_interval)
+
 
 def main():
     app = RobotApp()
