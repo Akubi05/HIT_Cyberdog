@@ -1,3 +1,9 @@
+/mi_desktop_48_b0_2d_7b_06_5e/image_rgb
+/mi_desktop_48_b0_2d_7b_06_5e/image_left
+/mi_desktop_48_b0_2d_7b_06_5e/image_right
+
+
+
 94号狗
 
 如果相机命令执行失败,可以在每个命令前面执行 ros2 daemon stop
