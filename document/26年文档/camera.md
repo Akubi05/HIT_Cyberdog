@@ -3,6 +3,20 @@
 /mi_desktop_48_b0_2d_7b_06_5e/image_right
 
 
+92号狗
+/mi_desktop_48_b0_2d_7b_05_3e/image
+/mi_desktop_48_b0_2d_7b_05_3e/image_left
+/mi_desktop_48_b0_2d_7b_05_3e/image_left_metadata
+/mi_desktop_48_b0_2d_7b_05_3e/image_rgb
+/mi_desktop_48_b0_2d_7b_05_3e/image_right
+
+ros2 lifecycle set /mi_desktop_48_b0_2d_7b_05_3e/camera/camera configure
+
+ros2 lifecycle set /mi_desktop_48_b0_2d_7b_05_3e/camera/camera activate
+
+ros2 lifecycle set /mi_desktop_48_b0_2d_7b_05_3e/stereo_camera configure
+
+ros2 lifecycle set /mi_desktop_48_b0_2d_7b_05_3e/stereo_camera activate
 
 94号狗
 
@@ -15,6 +29,7 @@ ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/camera/camera activate
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera configure
 
 ros2 lifecycle set /mi_desktop_48_b0_2d_5f_be_5c/stereo_camera activate
+
 
 
 ros2 launch realsense2_camera on_dog.py
