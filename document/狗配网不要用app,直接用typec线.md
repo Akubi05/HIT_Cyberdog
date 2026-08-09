@@ -12,6 +12,8 @@ sudo nmcli dev wifi list
 sudo nmcli dev wifi connect "WiFi名称" password "WiFi密码"
 e.g. 
 sudo nmcli dev wifi connect "zxp1" password "12345678"
+sudo nmcli dev wifi connect "iphone15" password "88888888"
+sudo nmcli dev wifi connect "TP-LINK_9CFC" 
 ```
 成功会显示：
 ```
